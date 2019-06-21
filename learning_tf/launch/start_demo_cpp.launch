@@ -7,9 +7,13 @@
   <param name="scale_linear" value="2" type="double"/>
   <param name="scale_angular" value="2" type="double"/>
 
-  <node pkg="learning_tf" type="turtle_tf_broadcaster"
-        args="/turtle1" name="turtle1_tf_broadcaster" />
-  <node pkg="learning_tf" type="turtle_tf_broadcaster"
+  <node pkg="learning_tf" type="turtle_tf_broadcaster.py"
+        args="/turtle1" name="turtle1_tf_broadcaster" respawn="false" output="screen" />
+
+  <node pkg="learning_tf" type="turtle_tf_broadcaster.py"
         args="/turtle2" name="turtle2_tf_broadcaster" />
+
+  <node pkg="learning_tf" type="turtle_tf_listener"
+          name="listener" />
 
 </launch>
