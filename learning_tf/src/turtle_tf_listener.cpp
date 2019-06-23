@@ -4,7 +4,7 @@
 #include <turtlesim/Spawn.h>
 
 int main(int argc, char** argv){
-///*
+/*
   ros::init(argc, argv, "my_tf_listener");
 
   ros::NodeHandle node;
@@ -42,5 +42,5 @@ int main(int argc, char** argv){
     rate.sleep();
   }
   return 0;
-//*/
+*/
 };
