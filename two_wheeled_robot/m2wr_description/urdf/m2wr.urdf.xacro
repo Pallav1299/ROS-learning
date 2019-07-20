@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <robot name="m2wr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find m2wr_description)/urdf/common_properties.xacro"/>
+  <xacro:include filename="$(find m2wr_description)/urdf/m2wr.gazebo.xacro"/>
+  <xacro:include filename="$(find m2wr_description)/urdf/macros.xacro"/>
   
   <link name="link_chassis">
     <!-- pose and inertial -->
@@ -20,7 +23,7 @@
       <geometry>
         <box size="0.5 0.3 0.07"/>
       </geometry>
-      <material name="blue"/>
+      <material name="red"/>
     </visual>
     <!-- caster front -->
     <collision name="caster_front_collision">
@@ -46,6 +49,35 @@
       </geometry>
     </visual>
   </link>
+
+  <link name="sensor_laser">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <xacro:cylinder_inertia mass="1" r="0.05" l="0.1" />
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="joint_sensor_laser" type="fixed">
+    <origin xyz="0.15 0 0.05" rpy="0 0 0"/>
+    <parent link="link_chassis"/>
+    <child link="sensor_laser"/>
+  </joint>
   
   <link name="link_right_wheel">
     <inertial>
@@ -64,11 +96,12 @@
       <geometry>
         <cylinder length="0.04" radius="0.1"/>
       </geometry>
+      <material name="black"/>
     </visual>
   </link>
   
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.05 0.15 0"/>
+    <origin rpy="0 0 0" xyz="-0.05 0.20 0"/>
     <child link="link_right_wheel"/>
     <parent link="link_chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -93,11 +126,12 @@
       <geometry>
         <cylinder length="0.04" radius="0.1"/>
       </geometry>
+      <material name="black"/>
     </visual>
   </link>
   
   <joint name="joint_left_wheel" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.05 -0.15 0"/>
+    <origin rpy="0 0 0" xyz="-0.05 -0.20 0"/>
     <child link="link_left_wheel"/>
     <parent link="link_chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
